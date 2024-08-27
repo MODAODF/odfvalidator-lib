@@ -6,6 +6,8 @@
 #
 
 jardir = $(datadir)/java/odfvalidator
-jar_DATA = odfvalidator.jar
+jar_DATA = odfvalidator-0.12.0-jar-with-dependencies.jar
+dist_jar_DATA = $(jar_DATA)
+
 
 # vim: set noet sw=4 ts=4:

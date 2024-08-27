@@ -7,4 +7,12 @@
 
 SUBDIRS = src resources
 
+bin_PROGRAMS = odfvalidator
+
+odfvalidator_CPPFLAGS = -pthread -I$(abs_top_builddir)/src/include
+odfvalidator_SOURCES = tools/odfvalidator.cpp
+odfvalidator_LDADD = $(abs_top_builddir)/src/libodfvalidator.la
+
+EXTRA_DIST = odfvalidator.spec
+
 # vim: set noet sw=4 ts=4:

@@ -1,0 +1,49 @@
+Name:		@PACKAGE_NAME@
+Version:	@VERSION@
+Release:	1%{?dist}
+Summary:	ODF Validator
+
+Group:      Development/Tools
+License:	MPL-2.0
+URL:		http://www.ossii.com.tw/
+Source0:	@PACKAGE@-%{version}.tar.gz
+
+BuildRequires:	gcc
+Requires:	java
+
+%description
+
+%package	devel
+Summary:    Development files for %{name}
+Requires:	%{name} = %{version}
+%description	devel
+
+
+%prep
+%setup -q -n @PACKAGE@-%{version}
+
+
+%build
+%configure
+make %{?_smp_mflags}
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+%make_install
+rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
+
+
+%files
+%{_bindir}/odfvalidator
+%{_libdir}/*.so.*
+%{_datadir}/java/odfvalidator/*.jar
+
+%files devel
+%{_includedir}/odfvalidator/*.hpp
+%{_libdir}/*.so
+
+
+%changelog
+* Tue Aug 27 2024 Firefly <firefly@ossii.com.tw>
+- Initial RPM build.

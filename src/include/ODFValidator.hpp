@@ -15,7 +15,6 @@ class ODFValidator
 public:
     ODFValidator();
     virtual ~ODFValidator() {}
-    ODFValidator(std::string& file);
 
     /// @brief Check if the file complies with ODF specifications.
     /// @param file -The file to check.

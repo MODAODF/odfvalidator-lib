@@ -8,16 +8,16 @@
 #
 
 
-AM_CPPFLAGS = -pthread
+AM_CPPFLAGS = -pthread -I./include
 
 if !ENABLE_DEBUG
 AM_CPPFLAGS += -DNDEBUG
 endif
 
-AM_LDFLAGS += -pthread
+AM_LDFLAGS = -pthread
 
 odfvalidator_sources = \
-    odfvalidator.cpp
+    lib/ODFValidator.cpp
 
 lib_LTLIBRARIES = libodfvalidator.la
 libodfvalidator_la_SOURCES = $(odfvalidator_sources)

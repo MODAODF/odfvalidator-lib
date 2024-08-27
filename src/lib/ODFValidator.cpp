@@ -7,14 +7,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include <ODFValidator.hpp>
+#include "config.h"
 
+#include <stdio.h>
 #include <string>
+#include <iostream>
 
-ODFValidator::ODFValidator(std::string& file)
-{
-	_file = file;
-}
+#include <ODFValidator.hpp>
 
 std::string ODFValidator::check(std::string& file)
 {
@@ -25,7 +24,25 @@ std::string ODFValidator::check(std::string& file)
 
 void ODFValidator::executeRealCommand()
 {
-	std::string javaCmd = "java";
+	_result = ""; // Clear the result.
+
+    std::string javaCmd = "java";
+
+	FILE *fd = popen(javaCmd.c_str(), "r");
+	if (fd == NULL)
+	{
+		std::cerr << "Error executing command: " << javaCmd << std::endl;
+		return;
+	}
+
+	int retcode = pclose(fd);
+
+	if (retcode == 0)
+	{
+	}
+	else
+	{
+	}
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
