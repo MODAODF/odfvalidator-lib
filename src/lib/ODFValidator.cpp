@@ -26,23 +26,24 @@ void ODFValidator::executeRealCommand()
 {
 	_result = ""; // Clear the result.
 
-    std::string javaCmd = "java";
+    std::string javaCmd = "java -jar " + std::string(ODFVALIDATOR_JAR_PATH) + " \"" + _file + "\" -v -e 2>&1";
+	std::cout << "Executing command: " << javaCmd << std::endl;
 
 	FILE *fd = popen(javaCmd.c_str(), "r");
-	if (fd == NULL)
+	if (!fd)
 	{
 		std::cerr << "Error executing command: " << javaCmd << std::endl;
 		return;
 	}
 
-	int retcode = pclose(fd);
+	char buffer[128];
+	while (fgets(buffer, sizeof(buffer), fd) != NULL)
+	{
+		_result += buffer;
+	}
 
-	if (retcode == 0)
-	{
-	}
-	else
-	{
-	}
+	int retcode = pclose(fd);
+	std::cout << "Return code: " << retcode << std::endl;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -13,7 +13,7 @@
 class ODFValidator
 {
 public:
-    ODFValidator();
+    ODFValidator() {}
     virtual ~ODFValidator() {}
 
     /// @brief Check if the file complies with ODF specifications.

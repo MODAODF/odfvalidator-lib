@@ -10,10 +10,6 @@
 
 AM_CPPFLAGS = -pthread -I./include
 
-if !ENABLE_DEBUG
-AM_CPPFLAGS += -DNDEBUG
-endif
-
 AM_LDFLAGS = -pthread
 
 odfvalidator_sources = \

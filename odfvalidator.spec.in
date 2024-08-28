@@ -24,7 +24,7 @@ Requires:	%{name} = %{version}
 
 
 %build
-%configure
+%configure --enable-shared --enable-static --disable-debug
 make %{?_smp_mflags}
 
 
@@ -42,6 +42,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 %files devel
 %{_includedir}/odfvalidator/*.hpp
 %{_libdir}/*.so
+%{_libdir}/*.a
 
 
 %changelog
