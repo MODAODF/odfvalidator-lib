@@ -17,6 +17,17 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_INSTALL
 
+# 檢測 Windows 平臺
+AC_CANONICAL_HOST
+case "$host_os" in
+  mingw* | cygwin* | msys*)
+    AC_DEFINE([WINDOWS], [1], [Define if the host is Windows])
+    ;;
+  *)
+    AC_DEFINE([WINDOWS], [0], [Define if the host is not Windows])
+    ;;
+esac
+
 CXXFLAGS="$CXXFLAGS -Werror -std=c++17"
 CFLAGS="$CFLAGS -Werror"
 LIBS="$LIBS -lstdc++fs"
