@@ -4,6 +4,7 @@
 
 /*.xml
 /*.spec
+/odfvalidator
 
 # Autofoo
 .deps
