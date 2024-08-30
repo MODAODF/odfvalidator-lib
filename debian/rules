@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+# Include the debhelper library
+include /usr/share/dpkg/default.mk
+
+# Include the debhelper build system
+%:
+	dh $@
+
+# Override the dh_auto_configure target to configure the build
+override_dh_auto_configure:
+	./autogen.sh
+	./configure --enable-shared --disable-debug --prefix=/usr --libdir=/usr/lib
+
+# Override the dh_auto_install target to install the project
+override_dh_auto_install:
+	dh_auto_install
+	rm -f $(CURDIR)/debian/odfvalidator-lib/usr/lib/*.la
+
+override_dh_install:

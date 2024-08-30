@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: odfvalidator-lib
+Source: http://www.ossii.com.tw/
+
+Files: *
+Copyright: 2024, Firefly <firefly@ossii.com.tw>
+License: MPL-2.0

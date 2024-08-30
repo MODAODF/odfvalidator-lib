@@ -1,0 +1,5 @@
+usr/bin/odfvalidator
+usr/lib/*.so*
+usr/share/java/odfvalidator/*.jar
+usr/include/odfvalidator/*.hpp
+usr/lib/*.a
