@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 {
     ODFValidator validator; // Create an instance of the ODFValidator class.
 
-    // 沒有參數
+    // No arguments provided.
     if (argc < 2)
     {
         std::cout << "Usage: " << argv[0] << " <file> [params]" << std::endl;
@@ -30,23 +30,26 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // 第二個參數是 -h 或 --help
+    // Display detailed help.
     if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help")
     {
         validator.showHelp();
         return 1;
     }
 
+    // Read the external parameters
     std::string externalParams = "";
     for (int i = 2; i < argc; i++)
     {
         externalParams += (i == 2 ? "" : " ") + std::string(argv[i]);
     }
-    std::cout << "External parameters: " << externalParams << std::endl;
 
     // Set the parameters if they were provided
     if (!externalParams.empty())
+    {
+        std::cout << "External parameters: " << externalParams << std::endl;
         validator.setParams(externalParams);
+    }
 
     // Read the first command-line argument
     std::string filename = argv[1];
@@ -60,7 +63,7 @@ int main(int argc, char *argv[])
     std::size_t lineNo = 0;
     for (const auto &line : result)
     {
-        // 固定 5 位數
+        // Print the line number and the line
         std::cout << std::setw(5) << ++lineNo << ": " << line << std::endl;
     }
 
