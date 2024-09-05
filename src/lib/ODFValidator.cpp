@@ -100,3 +100,29 @@ void ODFValidator::executeRealCommand()
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
+
+// C 接口函數實現
+extern "C"
+{
+    ODFValidator* ODFValidator_new()
+    {
+        return new ODFValidator();
+    }
+
+    void ODFValidator_delete(ODFValidator* validator)
+    {
+        delete validator;
+    }
+
+    void ODFValidator_check(ODFValidator* validator, const char* filePath)
+    {
+        std::string file(filePath);
+        validator->check(file);
+    }
+
+    const char* ODFValidator_getResult(ODFValidator* validator)
+    {
+        static std::string staticResult = validator->getResult();
+        return staticResult.c_str();
+    }
+}

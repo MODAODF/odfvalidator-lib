@@ -54,3 +54,12 @@ private:
 }; // class ODFValidator
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
+
+// C 接口函數
+extern "C"
+{
+    ODFValidator* ODFValidator_new();
+    void ODFValidator_delete(ODFValidator* validator);
+    void ODFValidator_check(ODFValidator* validator, const char* filePath);
+    const char* ODFValidator_getResult(ODFValidator* validator);
+}
