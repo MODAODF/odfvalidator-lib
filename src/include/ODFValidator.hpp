@@ -31,7 +31,8 @@ public:
 
     /// @brief Check if the file complies with ODF specifications.
     /// @param file -The file to check.
-    void check(std::string& file);
+    /// @return Return getJsonResult().
+    std::string check(std::string& file);
 
     /// @brief Get the result of the validation.
     /// @return The result.
@@ -40,6 +41,18 @@ public:
     /// @brief  Get the results of the validation.
     /// @return Vector of results.
     std::vector<std::string> getResults() const { return _results; }
+
+    /// @brief Check if the result contains "Error: ".
+    /// @return False if the result contains "Error: ", true otherwise.
+    bool isValid() const;
+
+    /// @brief Get the last editor tool from the result.
+    /// @return The last editor tool.
+    std::string getLastEditorTool() const;
+
+    /// @brief Get the result in JSON format.
+    /// @return The result in JSON format contains the values of isValid and lastEditorTool.
+    std::string getJsonResult() const;
 
 private:
     void executeRealCommand();
@@ -60,6 +73,6 @@ extern "C"
 {
     ODFValidator* ODFValidator_new();
     void ODFValidator_delete(ODFValidator* validator);
-    void ODFValidator_check(ODFValidator* validator, const char* filePath);
+    const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
     const char* ODFValidator_getResult(ODFValidator* validator);
 }

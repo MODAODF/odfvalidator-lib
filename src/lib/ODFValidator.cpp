@@ -13,6 +13,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <regex>
+#include <nlohmann/json.hpp>
 
 #include <ODFValidator.hpp>
 
@@ -44,10 +46,11 @@ void ODFValidator::showHelp()
     }
 }
 
-void ODFValidator::check(std::string &file)
+std::string ODFValidator::check(std::string &file)
 {
     _file = file;
     executeRealCommand();
+    return getJsonResult();
 }
 
 void ODFValidator::executeRealCommand()
@@ -99,6 +102,30 @@ void ODFValidator::executeRealCommand()
 #endif
 }
 
+bool ODFValidator::isValid() const
+{
+    return _result.find("Error: ") == std::string::npos;
+}
+
+std::string ODFValidator::getLastEditorTool() const
+{
+    std::regex generatorRegex(R"(Info: Generator: ((?:OxOffice\/\w+(\.\d+)*)|(\S+\/\d+(\.\d+)*)))");
+    std::smatch match;
+    if (std::regex_search(_result, match, generatorRegex))
+    {
+        return match[1].str();
+    }
+    return "";
+}
+
+std::string ODFValidator::getJsonResult() const
+{
+    nlohmann::json jsonResult;
+    jsonResult["isValid"] = isValid();
+    jsonResult["lastEditorTool"] = getLastEditorTool();
+    return jsonResult.dump();
+}
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
 
 // C 接口函數實現
@@ -114,10 +141,11 @@ extern "C"
         delete validator;
     }
 
-    void ODFValidator_check(ODFValidator* validator, const char* filePath)
+    const char* ODFValidator_check(ODFValidator* validator, const char* filePath)
     {
         std::string file(filePath);
-        validator->check(file);
+        static std::string jsonResult = validator->check(file);
+        return jsonResult.c_str();
     }
 
     const char* ODFValidator_getResult(ODFValidator* validator)
