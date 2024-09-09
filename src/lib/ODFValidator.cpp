@@ -13,8 +13,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <regex>
-#include <nlohmann/json.hpp>
+#include <unistd.h>
 
 #include <ODFValidator.hpp>
 
@@ -46,17 +45,28 @@ void ODFValidator::showHelp()
     }
 }
 
-std::string ODFValidator::check(std::string &file)
+void ODFValidator::check(std::string &file)
 {
     _file = file;
+    // TODO: 1.Check if the file exists.
+    if (access(_file.c_str(), F_OK) == -1)
+    {
+        makeJsonResult(ErrorCode::FILE_NOT_FOUND);
+        return;
+    }
+
+    // TODO: 2.Check if the file is an ODF file.
+
+
+    // TODO: 3.Check if the file is a valid ODF file.
     executeRealCommand();
-    return getJsonResult();
 }
 
 void ODFValidator::executeRealCommand()
 {
-    _result = ""; // Clear the result.
+    _result.clear(); // Clear the result.
     _results.clear(); // Clear the results.
+    _generator.clear(); // Clear the generator.
 
     std::string javaCmd("java");
     javaCmd.append(" -jar ");
@@ -64,11 +74,6 @@ void ODFValidator::executeRealCommand()
     javaCmd.append(" " + _params + " ");
     javaCmd.append("\"" + _file + "\"");
     javaCmd.append(" 2>&1");
-
-#if ENABLE_DEBUG
-    // 輸出綠色字體
-    std::cout << "\033[32m" << "Command: " << javaCmd << "\033[0m" << std::endl;
-#endif
 
     // Execute the command.
     FILE *fd = popen(javaCmd.c_str(), "r");
@@ -87,46 +92,76 @@ void ODFValidator::executeRealCommand()
         std::string line;
         while (std::getline(iss, line, '\n'))
         {
-            _results.push_back(line);
+            _results.push_back(line); // Save the results.
+
+            // Parse "Error: " to get the validation result.
+            const std::size_t foundError = line.find("Error: ");
+            if (foundError != std::string::npos)
+            {
+                _validation = false;
+                break;
+            }
+            else
+            {
+                _validation = true;
+            }
+
+            // Parse "Generator: " to get the last editor tool.
+            const std::size_t foundGenerator = line.find("Generator: ");
+            if (foundGenerator != std::string::npos)
+            {
+                std::size_t startPos = foundGenerator + 11;
+                // find first space after "Generator: "
+                std::size_t endPos = line.find(" ", startPos);
+                if (endPos != std::string::npos)
+                {
+                    _generator = line.substr(startPos, endPos - startPos);
+                }
+                else
+                {
+                    _generator = line.substr(startPos);
+                }
+            }
         }
+        // Make the result in JSON format.
+        makeJsonResult(ErrorCode::SUCCESS);
     }
     else
     {
-        _result = "Error executing command: " + javaCmd;
-        _returnCode = -999;
+        makeJsonResult(ErrorCode::COMMAND_ERROR);
     }
-
-#if ENABLE_DEBUG
-    std::cout << "Result: " << _result << std::endl;
-    std::cout << "\033[32m" << "Return code: " << _returnCode << "\033[0m" << std::endl;
-#endif
 }
 
-bool ODFValidator::isValid() const
+void ODFValidator::makeJsonResult(ErrorCode errorCode)
 {
-    return _result.find("Error: ") == std::string::npos;
-}
-
-std::string ODFValidator::getLastEditorTool() const
-{
-    std::regex generatorRegex(R"(Info: Generator: ((?:OxOffice\/\w+(\.\d+)*)|(\S+\/\d+(\.\d+)*)))");
-    std::smatch match;
-    if (std::regex_search(_result, match, generatorRegex))
+    bool success = (errorCode == ErrorCode::SUCCESS) ? true : false;
+    _jsonResult = "{\n";
+    _jsonResult += "    \"success\": ";
+    _jsonResult += success ? "true" : "false";
+    _jsonResult += ",\n";
+    _jsonResult += "    \"errorCode\": ";
+    _jsonResult += std::to_string(static_cast<int>(errorCode));
+    _jsonResult += ",\n";
+    _jsonResult += "    \"errorMessage\": \"";
+    _jsonResult += _errorMap[errorCode];
+    _jsonResult += "\"";
+    // Only add result if success.
+    if (success)
     {
-        return match[1].str();
+        _jsonResult += ",\n";
+        _jsonResult += "    \"result\":\n";
+        _jsonResult += "    {\n";
+        _jsonResult += "        \"validation\": ";
+        _jsonResult += _validation ? "true" : "false";
+        _jsonResult += ",\n";
+        _jsonResult += "        \"generator\": \"";
+        _jsonResult += _generator;
+        _jsonResult += "\"\n";
+        _jsonResult += "    }\n";
     }
-    return "";
-}
 
-std::string ODFValidator::getJsonResult() const
-{
-    nlohmann::json jsonResult;
-    jsonResult["isValid"] = isValid();
-    jsonResult["lastEditorTool"] = getLastEditorTool();
-    return jsonResult.dump();
+    _jsonResult += "}";
 }
-
-/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
 
 // C 接口函數實現
 extern "C"
@@ -144,13 +179,14 @@ extern "C"
     const char* ODFValidator_check(ODFValidator* validator, const char* filePath)
     {
         std::string file(filePath);
-        static std::string jsonResult = validator->check(file);
-        return jsonResult.c_str();
+        validator->check(file);
+        return validator->getJsonResult();
     }
 
     const char* ODFValidator_getResult(ODFValidator* validator)
     {
-        static std::string staticResult = validator->getResult();
-        return staticResult.c_str();
+        return validator->getResult();
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

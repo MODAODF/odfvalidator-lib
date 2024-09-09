@@ -11,10 +11,24 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 class ODFValidator
 {
 public:
+
+    enum class ErrorCode
+    {
+        SUCCESS = 0, // Success.
+        COMMAND_ERROR = 1, // Command error.
+
+        VALID = 100, // The file is a valid ODF file.
+        INVALID = 101, // The file is not a valid ODF file.
+
+        FILE_NOT_FOUND = 404, // File not found.
+        FILE_NOT_ODF = 405, // File is not an ODF file.
+    };
+
     ODFValidator();
     virtual ~ODFValidator() {}
 
@@ -31,31 +45,32 @@ public:
 
     /// @brief Check if the file complies with ODF specifications.
     /// @param file -The file to check.
-    /// @return Return getJsonResult().
-    std::string check(std::string& file);
+    void check(std::string& file);
 
     /// @brief Get the result of the validation.
     /// @return The result.
     std::string getResult() const { return _result; }
 
+    /// @brief Get the results of the validation.
+    const char* getResult() { return _result.c_str(); }
+
     /// @brief  Get the results of the validation.
     /// @return Vector of results.
     std::vector<std::string> getResults() const { return _results; }
 
-    /// @brief Check if the result contains "Error: ".
-    /// @return False if the result contains "Error: ", true otherwise.
-    bool isValid() const;
+    /// @brief Get the result of the validation.
+    /// @return The result.
+    std::string getJsonResult() const { return _jsonResult; }
 
-    /// @brief Get the last editor tool from the result.
-    /// @return The last editor tool.
-    std::string getLastEditorTool() const;
-
-    /// @brief Get the result in JSON format.
-    /// @return The result in JSON format contains the values of isValid and lastEditorTool.
-    std::string getJsonResult() const;
+    /// @brief Get the results of the validation.
+    const char* getJsonResult() { return _jsonResult.c_str(); }
 
 private:
+    /// @brief Execute the real command.
     void executeRealCommand();
+
+    /// @brief Make the result in JSON format.
+    void makeJsonResult(ErrorCode errorCode);
 
 private:
     std::string _params; // The parameters to pass to the validator.
@@ -64,9 +79,36 @@ private:
     std::vector<std::string> _results; // Vector of results.
     int _returnCode; // The return code of the validator.
 
-}; // class ODFValidator
+    bool _validation; // The validation result.
+    std::string _generator; // The last editor tool.
 
-/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
+    /// @brief The result in JSON format.
+    /// {
+    ///     "success": true,
+    ///     "errorCode": 0,
+    ///     "errorMessage": "Success",
+    ///      "result":
+    ///     {
+    ///         "validation": true,
+    ///         "generator": "OxOffice/6.0.0"
+    ///     }
+    /// }
+    /// @note If success is false, errorCode and errorMessage will be set. and result will be empty.
+    /// @return The result in JSON format.
+    std::string _jsonResult; // The result in JSON format.
+
+    // Map of error codes and messages.
+    std::map<ErrorCode, std::string> _errorMap =
+    {
+        {ErrorCode::SUCCESS, "Success"},
+        {ErrorCode::COMMAND_ERROR, "Command error"},
+        {ErrorCode::VALID, "The file is a valid ODF file"},
+        {ErrorCode::INVALID, "The file is not a valid ODF file"},
+        {ErrorCode::FILE_NOT_FOUND, "File not found"},
+        {ErrorCode::FILE_NOT_ODF, "File is not an ODF file"}
+    };
+
+}; // class ODFValidator
 
 // C 接口函數
 extern "C"
@@ -76,3 +118,5 @@ extern "C"
     const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
     const char* ODFValidator_getResult(ODFValidator* validator);
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

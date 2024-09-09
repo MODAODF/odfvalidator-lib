@@ -58,14 +58,9 @@ int main(int argc, char *argv[])
     validator.check(filename);
 
     // Get the result of the validation
-    std::vector<std::string> result = validator.getResults();
-    // print the result
-    std::size_t lineNo = 0;
-    for (const auto &line : result)
-    {
-        // Print the line number and the line
-        std::cout << std::setw(5) << ++lineNo << ": " << line << std::endl;
-    }
+    std::string jsonResult = validator.getJsonResult();
+    std::cout << jsonResult << std::endl;
+   
 
     return 0;
 }
