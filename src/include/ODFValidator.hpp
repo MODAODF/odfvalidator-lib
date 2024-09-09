@@ -72,6 +72,9 @@ private:
     /// @brief Make the result in JSON format.
     void makeJsonResult(ErrorCode errorCode);
 
+    /// @brief Check if the file is an ODF file.
+    bool isODFFile(const std::string& filePath);
+
 private:
     std::string _params; // The parameters to pass to the validator.
     std::string  _file; // The file to check.
