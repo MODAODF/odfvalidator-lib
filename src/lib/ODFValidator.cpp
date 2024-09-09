@@ -187,6 +187,11 @@ extern "C"
     {
         return validator->getResult();
     }
+
+    const char* ODFValidator_getJsonResult(ODFValidator* validator)
+    {
+        return validator->getJsonResult();
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

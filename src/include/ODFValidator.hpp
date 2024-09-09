@@ -117,6 +117,7 @@ extern "C"
     void ODFValidator_delete(ODFValidator* validator);
     const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
     const char* ODFValidator_getResult(ODFValidator* validator);
+    const char* ODFValidator_getJsonResult(ODFValidator* validator);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
