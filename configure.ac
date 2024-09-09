@@ -28,9 +28,12 @@ case "$host_os" in
     ;;
 esac
 
+# 檢查 libmagic 庫
+AC_CHECK_LIB([magic], [magic_open], [], [AC_MSG_ERROR([libmagic library not found])])
+
 CXXFLAGS="$CXXFLAGS -Werror -std=c++17"
 CFLAGS="$CFLAGS -Werror"
-LIBS="$LIBS -lstdc++fs"
+LIBS="$LIBS -lstdc++fs -lmagic"
 
 # 取得 jar 完整名稱
 jar_name=`ls resources/odfvalidator*.jar`
