@@ -6,6 +6,7 @@
 /*.spec
 /odfvalidator
 /odfchecker
+/build/
 
 # Autofoo
 .deps

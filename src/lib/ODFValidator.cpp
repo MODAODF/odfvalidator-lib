@@ -7,7 +7,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+#if !CMAKE
 #include "config.h"
+#endif
+
+#if WINDOWS
+#define popen _popen
+#define pclose _pclose
+#endif
 
 #include <stdio.h>
 #include <string>
