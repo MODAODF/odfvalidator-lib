@@ -2,12 +2,12 @@ Source: odfvalidator-lib
 Section: utils
 Priority: optional
 Maintainer: Firefly <firefly@ossii.com.tw>
-Build-Depends: debhelper (>= 9), gcc, make, libmagic-dev
+Build-Depends: debhelper (>= 9), gcc, make
 Standards-Version: 3.9.6
 Homepage: http://www.ossii.com.tw/
 
 Package: odfvalidator-lib
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, default-jre (>= 2:1.11), libmagic-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, default-jre (>= 2:1.11)
 Description: ODF Validator
  A tool to validate Open Document Format (ODF) files.
