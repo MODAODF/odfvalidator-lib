@@ -14,7 +14,6 @@
 #include <iostream>
 #include <sstream>
 #include <unistd.h>
-#include <magic.h>
 
 #include <ODFValidator.hpp>
 
@@ -57,11 +56,7 @@ void ODFValidator::check(std::string &file)
     }
 
     // TODO: 2.Check if the file is an ODF file.
-    if (!isODFFile(_file))
-    {
-        makeJsonResult(ErrorCode::FILE_NOT_ODF);
-        return;
-    }
+
 
     // TODO: 3.Check if the file is a valid ODF file.
     executeRealCommand();
@@ -166,42 +161,6 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
     }
 
     _jsonResult += "}";
-}
-
-bool ODFValidator::isODFFile(const std::string &filePath)
-{
-    // 初始化 magic 庫
-    magic_t magic = magic_open(MAGIC_MIME_TYPE);
-    if (magic == nullptr)
-    {
-        std::cerr << "Unable to initialize magic library" << std::endl;
-        return false;
-    }
-
-    // 加載默認的 magic 數據庫
-    if (magic_load(magic, nullptr) != 0)
-    {
-        std::cerr << "Unable to load magic database: " << magic_error(magic) << std::endl;
-        magic_close(magic);
-        return false;
-    }
-
-    // 獲取文件的 MIME 類型
-    const char *mimeType = magic_file(magic, filePath.c_str());
-    if (mimeType == nullptr)
-    {
-        std::cerr << "Unable to get MIME type: " << magic_error(magic) << std::endl;
-        magic_close(magic);
-        return false;
-    }
-
-    // 檢查 MIME 類型是否為 ODF
-    bool isODF = (std::string(mimeType).find("application/vnd.oasis.opendocument") != std::string::npos);
-
-    // 釋放 magic 資源
-    magic_close(magic);
-
-    return isODF;
 }
 
 // C 接口函數實現
