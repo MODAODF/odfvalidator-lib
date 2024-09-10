@@ -14,13 +14,16 @@
 #if WINDOWS
 #define popen _popen
 #define pclose _pclose
+#define access _access
+#include <io.h>
+#else
+#include <stdio.h>
 #endif
 
 #include <stdio.h>
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <unistd.h>
 
 #include <ODFValidator.hpp>
 
@@ -56,7 +59,7 @@ void ODFValidator::check(const std::string &file)
 {
     _file = file;
     // TODO: 1.Check if the file exists.
-    if (access(_file.c_str(), F_OK) == -1)
+    if (access(_file.c_str(), 0) == -1)
     {
         makeJsonResult(ErrorCode::FILE_NOT_FOUND);
         return;

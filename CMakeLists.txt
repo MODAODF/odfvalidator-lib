@@ -10,8 +10,8 @@ endif()
 # Set C++ standard and compiler flags
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
 add_definitions(-DCMAKE=1)
 
@@ -50,9 +50,9 @@ add_subdirectory(resources)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 
 add_executable(odfvalidator tools/odfvalidator.cpp)
-target_link_libraries(odfvalidator ODFValidator)
+target_link_libraries(odfvalidator ODFValidator_static)
 add_executable(odfchecker tools/odfchecker.cpp)
-target_link_libraries(odfchecker ODFValidator)
+target_link_libraries(odfchecker ODFValidator_static)
 
 # Install target
 install(FILES ${JAR_FILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/java/odfvalidator)
