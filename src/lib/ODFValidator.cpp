@@ -56,10 +56,47 @@ void ODFValidator::check(std::string &file)
     }
 
     // TODO: 2.Check if the file is an ODF file.
-
+    if (!isZipFile(_file) || !isODFFile(_file))
+    {
+        makeJsonResult(ErrorCode::FILE_NOT_ODF);
+        return;
+    }
 
     // TODO: 3.Check if the file is a valid ODF file.
     executeRealCommand();
+}
+
+bool ODFValidator::isZipFile(const std::string &file)
+{
+    // First 4 bytes of a ZIP file are: 0x50 0x4B 0x03 0x04
+    FILE *f = fopen(file.c_str(), "rb");
+    if (f)
+    {
+        char buffer[4];
+        if (fread(buffer, 1, 4, f) == 4)
+        {
+            if (buffer[0] == 'P' && buffer[1] == 'K' && buffer[2] == 3 && buffer[3] == 4)
+            {
+                fclose(f);
+                return true;
+            }
+        }
+        fclose(f);
+    }
+
+    return false;
+}
+
+bool ODFValidator::isODFFile(const std::string &file)
+{
+    // check file extension is .odt, .ods, .odp, .odg, .ott, .ots, .otp, .otg
+    const std::string ext = file.substr(file.find_last_of(".") + 1);
+    if (ext == "odt" || ext == "ods" || ext == "odp" || ext == "odg" ||
+        ext == "ott" || ext == "ots" || ext == "otp" || ext == "otg")
+    {
+        return true;
+    }
+    return false;
 }
 
 void ODFValidator::executeRealCommand()
@@ -93,6 +130,15 @@ void ODFValidator::executeRealCommand()
         while (std::getline(iss, line, '\n'))
         {
             _results.push_back(line); // Save the results.
+
+            // Parse "Error: The ODF package " and " shell contain the "
+            const std::size_t foundError1 = line.find("Error: The ODF package ");
+            const std::size_t foundError2 = line.find(" shell contain the ");
+            if (foundError1 != std::string::npos || foundError2 != std::string::npos)
+            {
+                makeJsonResult(ErrorCode::FILE_NOT_ODF);
+                return;
+            }
 
             // Parse "Error: " to get the validation result.
             const std::size_t foundError = line.find("Error: ");
@@ -158,9 +204,23 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
         _jsonResult += _generator;
         _jsonResult += "\"\n";
         _jsonResult += "    }\n";
+        _error.clear();
+    }
+    else
+    {
+        _error = _errorMap[errorCode];
     }
 
+    // Add a new line at the end.
+    if (_jsonResult.back() != '\n')
+    {
+        _jsonResult += "\n";
+    }
+
+    // End of JSON.
     _jsonResult += "}";
+
+    _returnCode = success ? 0 : 1;
 }
 
 // C 接口函數實現

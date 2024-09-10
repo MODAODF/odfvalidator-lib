@@ -57,10 +57,31 @@ int main(int argc, char *argv[])
     // Call the check method
     validator.check(filename);
 
-    // Get the result of the validation
-    std::string jsonResult = validator.getJsonResult();
+    // Get return code
+    int returnCode = validator.getReturnCode();
+    if (returnCode != 0)
+    {
+        // 輸出亮紅色 Error: 錯誤信息
+        std::cerr << "\033[1;31mError: " << "\033[0m" << validator.getError() << std::endl;
+        return returnCode;
+    }
+
+    // Get results
+    const std::vector<std::string> results = validator.getResults();
+    // dump the results
+    std::size_t lineNo = 0;
+    for (const auto &result : results)
+    {
+        std::cout << std::setw(5) << ++lineNo << ": " << result << std::endl;
+    }
+
+    // Get the result in JSON format
+    const std::string jsonResult = validator.getJsonResult();
+    // 輸出亮綠色
+    std::cout << "\033[1;32m============" << std::endl
+              << "JSON result:" << std::endl
+              << "============\033[0m" << std::endl;
     std::cout << jsonResult << std::endl;
-   
 
     return 0;
 }

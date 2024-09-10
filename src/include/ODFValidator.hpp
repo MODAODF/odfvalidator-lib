@@ -65,7 +65,25 @@ public:
     /// @brief Get the results of the validation.
     const char* getJsonResult() { return _jsonResult.c_str(); }
 
+    /// @brief Get the return code of the validator.
+    /// @return The return code. 0 if success, antoher value if error.
+    int getReturnCode() const { return _returnCode; }
+
+    /// @brief Get error message.
+    /// @return The error message. Empty if no error.
+    std::string getError() const { return _error; }
+
 private:
+    /// @brief Check if the file is a ZIP file.
+    /// @param file
+    /// @return True if the file is a ZIP file, false otherwise.
+    bool isZipFile(const std::string& file);
+
+    /// @brief Check if the file is an ODF file.
+    /// @param file
+    /// @return True if the file is an ODF file, false otherwise.
+    bool isODFFile(const std::string& file);
+
     /// @brief Execute the real command.
     void executeRealCommand();
 
@@ -78,6 +96,8 @@ private:
     std::string  _result; // The result of the validation.
     std::vector<std::string> _results; // Vector of results.
     int _returnCode; // The return code of the validator.
+
+    std::string _error; // The error message.
 
     bool _validation; // The validation result.
     std::string _generator; // The last editor tool.
