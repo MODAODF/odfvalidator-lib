@@ -45,7 +45,7 @@ void ODFValidator::showHelp()
     }
 }
 
-void ODFValidator::check(std::string &file)
+void ODFValidator::check(const std::string &file)
 {
     _file = file;
     // TODO: 1.Check if the file exists.
@@ -105,6 +105,8 @@ void ODFValidator::executeRealCommand()
     _results.clear(); // Clear the results.
     _generator.clear(); // Clear the generator.
 
+    _validation = true; // Set the validation result to true.
+
     std::string javaCmd("java");
     javaCmd.append(" -jar ");
     javaCmd.append(ODFVALIDATOR_JAR_PATH);
@@ -145,11 +147,6 @@ void ODFValidator::executeRealCommand()
             if (foundError != std::string::npos)
             {
                 _validation = false;
-                break;
-            }
-            else
-            {
-                _validation = true;
             }
 
             // Parse "Generator: " to get the last editor tool.

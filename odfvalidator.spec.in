@@ -35,6 +35,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 
 
 %files
+%{_bindir}/odfchecker
 %{_bindir}/odfvalidator
 %{_libdir}/*.so.*
 %{_datadir}/java/odfvalidator/*.jar

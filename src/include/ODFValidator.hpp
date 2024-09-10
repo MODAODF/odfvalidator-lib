@@ -45,7 +45,7 @@ public:
 
     /// @brief Check if the file complies with ODF specifications.
     /// @param file -The file to check.
-    void check(std::string& file);
+    void check(const std::string& file);
 
     /// @brief Get the result of the validation.
     /// @return The result.

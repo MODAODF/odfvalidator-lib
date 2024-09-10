@@ -7,11 +7,15 @@
 
 SUBDIRS = src resources
 
-bin_PROGRAMS = odfvalidator
+bin_PROGRAMS = odfvalidator odfchecker
 
 odfvalidator_CPPFLAGS = -pthread -I$(abs_top_builddir)/src/include
 odfvalidator_SOURCES = tools/odfvalidator.cpp
 odfvalidator_LDADD = $(abs_top_builddir)/src/libodfvalidator.la
+
+odfchecker_CPPFLAGS = -pthread -I$(abs_top_builddir)/src/include
+odfchecker_SOURCES = tools/odfchecker.cpp
+odfchecker_LDADD = $(abs_top_builddir)/src/libodfvalidator.la
 
 EXTRA_DIST = odfvalidator.spec
 
