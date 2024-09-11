@@ -267,6 +267,17 @@ void ODFValidator::executeRealCommand()
                 {
                     _generator = line.substr(startPos);
                 }
+
+                // Check if the generator starts with "MicrosoftOffice/"
+                if (_generator.find("MicrosoftOffice/") == 0)
+                {
+                    const std::string version = _generator.substr(16);
+                    std::string versionString = "unknown Office version";
+                    if (_msOfficeVersionMap.find(version) != _msOfficeVersionMap.end())
+                        versionString = _msOfficeVersionMap[version];
+
+                    _generator += " (" + versionString + ")";
+                }
             }
         }
         // Make the result in JSON format.

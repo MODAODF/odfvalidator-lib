@@ -74,6 +74,14 @@ public:
     /// @return True if the file is a valid ODF file, false otherwise.
     bool isValidation() const { return _validation; }
 
+    /// @brief Get the ODF version.
+    /// @return The ODF version.
+    std::string getODFVersion() const { return _odfVersion; }
+
+    /// @brief Get the generator.
+    /// @return The generator.
+    std::string getGenerator() const { return _generator; }
+
     /// @brief Get validation error messages. Empty if no error.
     /// @return Vector of validation error messages.
     std::vector<std::string> getErrorMessages() const { return _errorMessages; }
@@ -158,6 +166,15 @@ private:
         {ErrorCode::INVALID, "The file is not a valid ODF file"},
         {ErrorCode::FILE_NOT_FOUND, "File not found"},
         {ErrorCode::FILE_NOT_ODF, "File is not an ODF file"}
+    };
+
+    // Map of MS Office version.
+    std::map<std::string, std::string> _msOfficeVersionMap =
+    {
+        {"12.0", "Office 2007"},
+        {"14.0", "Office 2010"},
+        {"15.0", "Office 2013"},
+        {"16.0", "Office 2016/ Office 2019/ Office 365"}
     };
 
 }; // class ODFValidator
