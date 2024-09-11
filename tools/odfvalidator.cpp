@@ -66,22 +66,8 @@ int main(int argc, char *argv[])
         return returnCode;
     }
 
-    // Get results
-    const std::vector<std::string> results = validator.getResults();
-    // dump the results
-    std::size_t lineNo = 0;
-    for (const auto &result : results)
-    {
-        std::cout << std::setw(5) << ++lineNo << ": " << result << std::endl;
-    }
-
-    // Get the result in JSON format
-    const std::string jsonResult = validator.getJsonResult();
-    // 輸出亮綠色
-    std::cout << "\033[1;32m============" << std::endl
-              << "JSON result:" << std::endl
-              << "============\033[0m" << std::endl;
-    std::cout << jsonResult << std::endl;
+    // 輸出淺綠色 JSON 結果
+    std::cout << "\033[32m" << validator.getJsonResult() << "\033[0m" << std::endl;
 
     return 0;
 }

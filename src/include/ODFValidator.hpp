@@ -70,6 +70,14 @@ public:
     /// @return The return code. 0 if success, antoher value if error.
     int getReturnCode() const { return _returnCode; }
 
+    /// @brief Get the validation result.
+    /// @return True if the file is a valid ODF file, false otherwise.
+    bool isValidation() const { return _validation; }
+
+    /// @brief Get validation error messages. Empty if no error.
+    /// @return Vector of validation error messages.
+    std::vector<std::string> getErrorMessages() const { return _errorMessages; }
+
     /// @brief Get error message.
     /// @return The error message. Empty if no error.
     std::string getError() const { return _error; }
@@ -82,6 +90,9 @@ public:
     /// @param command
     /// @return True if the command is available, false otherwise.
     static bool isCommandAvailable(const std::string& command);
+
+    /// @brief Escape a JSON string.
+    static std::string escapeJSONString(const std::string& input);
 
 private:
     /// @brief Check if the file is a ZIP file.
@@ -112,7 +123,9 @@ private:
     std::string _error; // The error message.
 
     bool _validation; // The validation result.
+    std::string _odfVersion; // The ODF version.
     std::string _generator; // The last editor tool.
+    std::vector<std::string> _errorMessages; // Vector of validation error messages.
 
     /// @brief The result in JSON format.
     /// {
@@ -122,7 +135,13 @@ private:
     ///      "result":
     ///     {
     ///         "validation": true,
+    ///         "odfVersion": "1.2",
     ///         "generator": "OxOffice/6.0.0"
+    ///         "errorMessages":
+    ///         [
+    ///             "Error: The ODF package is not valid",
+    ///             "Error: The ODF package shell contain the content.xml file"
+    ///         ]
     ///     }
     /// }
     /// @note If success is false, errorCode and errorMessage will be set. and result will be empty.

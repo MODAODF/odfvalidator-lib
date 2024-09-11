@@ -54,45 +54,34 @@ int main(int argc, char *argv[])
         {
             // 輸出亮綠色
             std::cout << "\033[1;32mdone" << "\033[0m";
-            // Get results
-            const std::vector<std::string> results = validator.getResults();
-            bool hasError = false;
-            // 找出有 "Error: " 的行
-            for (const auto &result : results)
+            bool validation = validator.isValidation();
+            if (validation)
+            {
+                std::cout << std::endl;
+                continue;
+            }
+
+            std::cout << "(but error)" << std::endl;
+            // Save the error messages.
+            errorTable[filename] = validator.getErrorMessages();
+            // Find the error reasons.
+            for (const auto &result : errorTable[filename])
             {
                 const std::size_t foundError = result.find("Error: ");
                 if (foundError != std::string::npos)
                 {
-                    hasError = true;
                     std::string firstPart = result.substr(0, foundError);
                     std::string reason = result.substr(foundError);
                     // 去掉 firstPart 前後空白
                     firstPart.erase(firstPart.find_last_not_of(" \n\r\t")+1);
                     // 去掉 reason 前後空白
                     reason.erase(0, reason.find_first_not_of(" \n\r\t"));
-
                     // 如果 reason 不在 errorReasons 裡面，就加進去
                     if (errorReasons.find(reason) == errorReasons.end())
                     {
                         errorReasons.insert(reason);
                     }
-
-                    // 如果 filename 不在 errorTable 裡面，就加進去
-                    if (errorTable.find(filename) == errorTable.end())
-                    {
-                        errorTable[filename] = std::vector<std::string>();
-                    }
-                    errorTable[filename].push_back(result);
-
                 }
-            }
-            if (!hasError)
-            {
-                std::cout << std::endl;
-            }
-            else
-            {
-                std::cout << "(but error)" << std::endl;
             }
         }
     }
@@ -123,7 +112,6 @@ int main(int argc, char *argv[])
             {
                 for (const auto &error : errorTable)
                 {
-                    //ofs << "File: " << error.first << std::endl;
                     for (const auto &reason : error.second)
                     {
                         ofs << reason << std::endl;

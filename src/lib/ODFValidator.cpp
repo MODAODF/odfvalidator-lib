@@ -64,6 +64,43 @@ bool ODFValidator::isCommandAvailable(const std::string& command)
     return false;
 }
 
+std::string ODFValidator::escapeJSONString(const std::string& input)
+{
+    std::string output;
+    output.reserve(input.size() + 2);
+    for (char c : input)
+    {
+        switch (c)
+        {
+            case '"':
+                output += "\\\"";
+                break;
+            case '\\':
+                output += "\\\\";
+                break;
+            case '\b':
+                output += "\\b";
+                break;
+            case '\f':
+                output += "\\f";
+                break;
+            case '\n':
+                output += "\\n";
+                break;
+            case '\r':
+                output += "\\r";
+                break;
+            case '\t':
+                output += "\\t";
+                break;
+            default:
+                output += c;
+                break;
+        }
+    }
+    return output;
+}
+
 void ODFValidator::showHelp()
 {
     // Execute java -jar odfvalidator-0.12.0-jar-with-dependencies.jar -h
@@ -145,9 +182,11 @@ void ODFValidator::executeRealCommand()
 {
     _result.clear(); // Clear the result.
     _results.clear(); // Clear the results.
+    _odfVersion = "unknown"; // Set the ODF version to unknown.
     _generator.clear(); // Clear the generator.
 
     _validation = true; // Set the validation result to true.
+    _errorMessages.clear(); // Clear the error messages.
 
     if (!isJavaAvailable())
     {
@@ -181,10 +220,8 @@ void ODFValidator::executeRealCommand()
         {
             _results.push_back(line); // Save the results.
 
-            // Parse "Error: The ODF package " and " shell contain the "
-            const std::size_t foundError1 = line.find("Error: The ODF package ");
-            const std::size_t foundError2 = line.find(" shell contain the ");
-            if (foundError1 != std::string::npos || foundError2 != std::string::npos)
+            // Parse " is invalid for the ODF XML Schema document"
+            if (line.find(" is invalid for the ODF XML Schema document") != std::string::npos)
             {
                 makeJsonResult(ErrorCode::FILE_NOT_ODF);
                 return;
@@ -195,6 +232,24 @@ void ODFValidator::executeRealCommand()
             if (foundError != std::string::npos)
             {
                 _validation = false;
+                _errorMessages.push_back(line);
+            }
+
+            // Parse "ODF version of root document: " to get the ODF version.
+            const std::size_t foundODFVersion = line.find("ODF version of root document: ");
+            if (foundODFVersion != std::string::npos)
+            {
+                std::size_t startPos = foundODFVersion + 30;
+                // find first space after "ODF version of root document: "
+                std::size_t endPos = line.find(" ", startPos);
+                if (endPos != std::string::npos)
+                {
+                    _odfVersion = line.substr(startPos, endPos - startPos);
+                }
+                else
+                {
+                    _odfVersion = line.substr(startPos);
+                }
             }
 
             // Parse "Generator: " to get the last editor tool.
@@ -234,7 +289,7 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
     _jsonResult += std::to_string(static_cast<int>(errorCode));
     _jsonResult += ",\n";
     _jsonResult += "    \"errorMessage\": \"";
-    _jsonResult += _errorMap[errorCode];
+    _jsonResult += escapeJSONString(_errorMap[errorCode]);
     _jsonResult += "\"";
     // Only add result if success.
     if (success)
@@ -245,9 +300,27 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
         _jsonResult += "        \"validation\": ";
         _jsonResult += _validation ? "true" : "false";
         _jsonResult += ",\n";
+        _jsonResult += "        \"odfVersion\": \"";
+        _jsonResult += escapeJSONString(_odfVersion);
+        _jsonResult += "\",\n";
         _jsonResult += "        \"generator\": \"";
-        _jsonResult += _generator;
+        _jsonResult += escapeJSONString(_generator);
         _jsonResult += "\"\n";
+        if (!_errorMessages.empty())
+        {
+            _jsonResult += ",\n";
+            _jsonResult += "        \"errorMessages\": [\n";
+            for (const auto &error : _errorMessages)
+            {
+                _jsonResult += "            \"";
+                _jsonResult += escapeJSONString(error);
+                _jsonResult += "\",\n";
+            }
+            _jsonResult.pop_back(); // Remove the last comma.
+            _jsonResult.pop_back(); // Remove the last newline.
+            _jsonResult += "\n";
+            _jsonResult += "        ]\n";
+        }
         _jsonResult += "    }\n";
         _error.clear();
     }
