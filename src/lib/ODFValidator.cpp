@@ -14,23 +14,52 @@
 #if WINDOWS
 #define popen _popen
 #define pclose _pclose
-#define access _access
-#define F_OK 0
-#include <io.h>
+#define JAVA_CMD "java.exe"
 #else
 #include <unistd.h>
+#define JAVA_CMD "java"
 #endif
 
 #include <stdio.h>
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <filesystem>
+#include <cstdlib> // for system()
 
 #include <ODFValidator.hpp>
+
+bool ODFValidator::_javaAvailable = ODFValidator::isCommandAvailable(JAVA_CMD);
 
 ODFValidator::ODFValidator()
 {
     _params = "-v -e"; // Default parameters.
+}
+
+bool ODFValidator::isCommandAvailable(const std::string& command)
+{
+    std::vector<std::string> paths;
+    const char* pathEnv = std::getenv("PATH");
+    if (pathEnv != nullptr) {
+        std::string pathStr(pathEnv);
+        size_t pos = 0;
+        std::string token;
+        while ((pos = pathStr.find(';')) != std::string::npos) {
+            token = pathStr.substr(0, pos);
+            paths.push_back(token);
+            pathStr.erase(0, pos + 1);
+        }
+        paths.push_back(pathStr);
+    }
+
+    for (const auto& path : paths) {
+        std::filesystem::path fullPath = std::filesystem::path(path) / command;
+        if (std::filesystem::exists(fullPath))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void ODFValidator::showHelp()
@@ -59,8 +88,8 @@ void ODFValidator::showHelp()
 void ODFValidator::check(const std::string &file)
 {
     _file = file;
-    // TODO: 1.Check if the file exists.
-    if (access(_file.c_str(), F_OK) == -1)
+    // 用 filesystem::exists() 檢查檔案是否存在
+    if (!std::filesystem::exists(_file))
     {
         makeJsonResult(ErrorCode::FILE_NOT_FOUND);
         return;
@@ -117,6 +146,12 @@ void ODFValidator::executeRealCommand()
     _generator.clear(); // Clear the generator.
 
     _validation = true; // Set the validation result to true.
+
+    if (!isJavaAvailable())
+    {
+        makeJsonResult(ErrorCode::NO_JAVA);
+        return;
+    }
 
     std::string javaCmd("java");
     javaCmd.append(" -jar ");
@@ -182,7 +217,7 @@ void ODFValidator::executeRealCommand()
     }
     else
     {
-        makeJsonResult(ErrorCode::COMMAND_ERROR);
+        makeJsonResult(ErrorCode::JAVA_COMMAND_ERROR);
     }
 }
 

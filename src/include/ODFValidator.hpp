@@ -20,7 +20,8 @@ public:
     enum class ErrorCode
     {
         SUCCESS = 0, // Success.
-        COMMAND_ERROR = 1, // Command error.
+        NO_JAVA = 1, // Java is not available.
+        JAVA_COMMAND_ERROR = 1, // Java command error.
 
         VALID = 100, // The file is a valid ODF file.
         INVALID = 101, // The file is not a valid ODF file.
@@ -73,6 +74,15 @@ public:
     /// @return The error message. Empty if no error.
     std::string getError() const { return _error; }
 
+    /// @brief check if Java is available.
+    /// @return True if Java is available, false otherwise.
+    static bool isJavaAvailable() { return _javaAvailable; }
+
+    /// @brief Check if the command is available.
+    /// @param command
+    /// @return True if the command is available, false otherwise.
+    static bool isCommandAvailable(const std::string& command);
+
 private:
     /// @brief Check if the file is a ZIP file.
     /// @param file
@@ -91,6 +101,8 @@ private:
     void makeJsonResult(ErrorCode errorCode);
 
 private:
+    static bool _javaAvailable; // True if Java is available, false otherwise.
+
     std::string _params; // The parameters to pass to the validator.
     std::string  _file; // The file to check.
     std::string  _result; // The result of the validation.
@@ -121,7 +133,8 @@ private:
     std::map<ErrorCode, std::string> _errorMap =
     {
         {ErrorCode::SUCCESS, "Success"},
-        {ErrorCode::COMMAND_ERROR, "Command error"},
+        {ErrorCode::NO_JAVA, "Java is not available"},
+        {ErrorCode::JAVA_COMMAND_ERROR, "Java command error"},
         {ErrorCode::VALID, "The file is a valid ODF file"},
         {ErrorCode::INVALID, "The file is not a valid ODF file"},
         {ErrorCode::FILE_NOT_FOUND, "File not found"},
