@@ -15,9 +15,11 @@
 #define popen _popen
 #define pclose _pclose
 #define JAVA_CMD "java.exe"
+#define PATH_SPLITTER ';' // Windows uses semicolon.
 #else
 #include <unistd.h>
 #define JAVA_CMD "java"
+#define PATH_SPLITTER ':' // Unix uses colon.
 #endif
 
 #include <stdio.h>
@@ -44,7 +46,7 @@ bool ODFValidator::isCommandAvailable(const std::string& command)
         std::string pathStr(pathEnv);
         size_t pos = 0;
         std::string token;
-        while ((pos = pathStr.find(';')) != std::string::npos) {
+        while ((pos = pathStr.find(PATH_SPLITTER)) != std::string::npos) {
             token = pathStr.substr(0, pos);
             paths.push_back(token);
             pathStr.erase(0, pos + 1);
