@@ -78,9 +78,17 @@ public:
     /// @return The ODF version.
     std::string getODFVersion() const { return _odfVersion; }
 
+    /// @brief Get the ODF version.
+    /// @return The ODF version.
+    const char* getODFVersion() { return _odfVersion.c_str(); }
+
     /// @brief Get the generator.
     /// @return The generator.
     std::string getGenerator() const { return _generator; }
+
+    /// @brief Get the generator.
+    /// @return The generator.
+    const char* getGenerator() { return _generator.c_str(); }
 
     /// @brief Get validation error messages. Empty if no error.
     /// @return Vector of validation error messages.
@@ -140,7 +148,7 @@ private:
     ///     "success": true,
     ///     "errorCode": 0,
     ///     "errorMessage": "Success",
-    ///      "result":
+    ///     "result":
     ///     {
     ///         "validation": true,
     ///         "odfVersion": "1.2",
@@ -187,6 +195,8 @@ extern "C"
     const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
     const char* ODFValidator_getResult(ODFValidator* validator);
     const char* ODFValidator_getJsonResult(ODFValidator* validator);
+    const char* ODFValidator_getODFVersion(ODFValidator* validator);
+    const char* ODFValidator_getGenerator(ODFValidator* validator);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

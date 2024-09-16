@@ -295,13 +295,7 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
     _jsonResult = "{\n";
     _jsonResult += "    \"success\": ";
     _jsonResult += success ? "true" : "false";
-    _jsonResult += ",\n";
-    _jsonResult += "    \"errorCode\": ";
-    _jsonResult += std::to_string(static_cast<int>(errorCode));
-    _jsonResult += ",\n";
-    _jsonResult += "    \"errorMessage\": \"";
-    _jsonResult += escapeJSONString(_errorMap[errorCode]);
-    _jsonResult += "\"";
+
     // Only add result if success.
     if (success)
     {
@@ -337,6 +331,13 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
     }
     else
     {
+        _jsonResult += ",\n";
+        _jsonResult += "    \"errorCode\": ";
+        _jsonResult += std::to_string(static_cast<int>(errorCode));
+        _jsonResult += ",\n";
+        _jsonResult += "    \"errorMessage\": \"";
+        _jsonResult += escapeJSONString(_errorMap[errorCode]);
+        _jsonResult += "\"\n";
         _error = _errorMap[errorCode];
     }
 
@@ -380,6 +381,16 @@ extern "C"
     const char* ODFValidator_getJsonResult(ODFValidator* validator)
     {
         return validator->getJsonResult();
+    }
+
+    const char* ODFValidator_getODFVersion(ODFValidator* validator)
+    {
+        return validator->getODFVersion();
+    }
+
+    const char* ODFValidator_getGenerator(ODFValidator* validator)
+    {
+        return validator->getGenerator();
     }
 }
 
