@@ -13,7 +13,7 @@ endif()
 
 # 編譯靜態函式庫
 add_library(ODFValidator_static STATIC lib/ODFValidator.cpp)
-set_target_properties(ODFValidator_static PROPERTIES OUTPUT_NAME "ODFValidator")
+set_target_properties(ODFValidator_static PROPERTIES OUTPUT_NAME "ODFValidator_static")
 target_include_directories(ODFValidator_static PUBLIC include)
 # 非 Windows 系統需要連結 stdc++fs
 if(WIN32)
