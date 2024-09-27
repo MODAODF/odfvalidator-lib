@@ -31,6 +31,12 @@
 
 #include <ODFValidator.hpp>
 
+#ifdef _WIN32
+    #define DLL_EXPORT __declspec(dllexport)
+#else
+    #define DLL_EXPORT
+#endif
+
 bool ODFValidator::_javaAvailable = ODFValidator::isCommandAvailable(JAVA_CMD);
 
 ODFValidator::ODFValidator()
@@ -356,39 +362,39 @@ void ODFValidator::makeJsonResult(ErrorCode errorCode)
 // C 接口函數實現
 extern "C"
 {
-    ODFValidator* ODFValidator_new()
+    DLL_EXPORT ODFValidator* ODFValidator_new()
     {
         return new ODFValidator();
     }
 
-    void ODFValidator_delete(ODFValidator* validator)
+    DLL_EXPORT void ODFValidator_delete(ODFValidator* validator)
     {
         delete validator;
     }
 
-    const char* ODFValidator_check(ODFValidator* validator, const char* filePath)
+    DLL_EXPORT const char* ODFValidator_check(ODFValidator* validator, const char* filePath)
     {
         std::string file(filePath);
         validator->check(file);
         return validator->getJsonResult();
     }
 
-    const char* ODFValidator_getResult(ODFValidator* validator)
+    DLL_EXPORT const char* ODFValidator_getResult(ODFValidator* validator)
     {
         return validator->getResult();
     }
 
-    const char* ODFValidator_getJsonResult(ODFValidator* validator)
+    DLL_EXPORT const char* ODFValidator_getJsonResult(ODFValidator* validator)
     {
         return validator->getJsonResult();
     }
 
-    const char* ODFValidator_getODFVersion(ODFValidator* validator)
+    DLL_EXPORT const char* ODFValidator_getODFVersion(ODFValidator* validator)
     {
         return validator->getODFVersion();
     }
 
-    const char* ODFValidator_getGenerator(ODFValidator* validator)
+    DLL_EXPORT const char* ODFValidator_getGenerator(ODFValidator* validator)
     {
         return validator->getGenerator();
     }

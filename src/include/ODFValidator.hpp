@@ -13,6 +13,12 @@
 #include <vector>
 #include <map>
 
+#ifdef _WIN32
+    #define DLL_EXPORT __declspec(dllexport)
+#else
+    #define DLL_EXPORT
+#endif
+
 class ODFValidator
 {
 public:
@@ -190,13 +196,13 @@ private:
 // C 接口函數
 extern "C"
 {
-    ODFValidator* ODFValidator_new();
-    void ODFValidator_delete(ODFValidator* validator);
-    const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
-    const char* ODFValidator_getResult(ODFValidator* validator);
-    const char* ODFValidator_getJsonResult(ODFValidator* validator);
-    const char* ODFValidator_getODFVersion(ODFValidator* validator);
-    const char* ODFValidator_getGenerator(ODFValidator* validator);
+    DLL_EXPORT ODFValidator* ODFValidator_new();
+    DLL_EXPORT void ODFValidator_delete(ODFValidator* validator);
+    DLL_EXPORT const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
+    DLL_EXPORT const char* ODFValidator_getResult(ODFValidator* validator);
+    DLL_EXPORT const char* ODFValidator_getJsonResult(ODFValidator* validator);
+    DLL_EXPORT const char* ODFValidator_getODFVersion(ODFValidator* validator);
+    DLL_EXPORT const char* ODFValidator_getGenerator(ODFValidator* validator);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
