@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="ODFValidator" Language="1033" Version="1.0.0.0" Manufacturer="MyCompany" UpgradeCode="@PRODUCT_GUID@">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="ODFValidator">
+          <Directory Id="RESOURCESFOLDER" Name="resources" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="@COMPONENT_GUID@" Win64="yes">
+        <File Source="@EXECUTABLE_OUTPUT_PATH@/odfvalidator.exe" />
+      </Component>
+      <Component Id="CheckerExecutable" Guid="@COMPONENT_GUID_CHECKER@" Win64="yes">
+        <File Source="@EXECUTABLE_OUTPUT_PATH@/odfchecker.exe" />
+      </Component>
+      <Component Id="ValidatorDLL" Guid="@COMPONENT_GUID_DLL@" Win64="yes">
+        <File Source="@CMAKE_BINARY_DIR@/src/ODFValidator.dll" />
+      </Component>
+      <Component Id="ValidatorStaticLib" Guid="@COMPONENT_GUID_STATIC_LIB@" Win64="yes">
+        <File Source="@CMAKE_BINARY_DIR@/src/ODFValidator_static.lib" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="RESOURCESFOLDER">
+      <Component Id="ValidatorJar" Guid="@COMPONENT_GUID_JAR@" Win64="yes">
+        <File Source="@CMAKE_SOURCE_DIR@/resources/@ODFVALIDATOR_JAR_NAME@" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="ODFValidator" Level="1">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="CheckerExecutable" />
+      <ComponentRef Id="ValidatorDLL" />
+      <ComponentRef Id="ValidatorStaticLib" />
+      <ComponentRef Id="ValidatorJar" />
+    </Feature>
+  </Product>
+</Wix>
