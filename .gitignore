@@ -37,3 +37,38 @@ m4
 *.lo
 *.la
 *.tar.gz
+
+# C# .NET build outputs
+example/*/C-Sharp/*/bin/
+example/*/C-Sharp/*/obj/
+
+# User-specific files
+example/*/C-Sharp/*/*.user
+example/*/C-Sharp/*/*.rsuser
+example/*/C-Sharp/*/*.suo
+example/*/C-Sharp/*/*.userosscache
+example/*/C-Sharp/*/*.sln.docstates
+
+# Rider project files
+example/*/C-Sharp/*/.idea/
+
+# Visual Studio Code workspace settings
+example/*/C-Sharp/*/.vscode/
+
+# Temporary files
+example/*/C-Sharp/*/*.tmp
+example/*/C-Sharp/*/*.log
+example/*/C-Sharp/*/*.lock
+example/*/C-Sharp/*/*.cache
+example/*/C-Sharp/*/*.diff
+example/*/C-Sharp/*/*.patch
+example/*/C-Sharp/*/*.rej
+example/*/C-Sharp/*/*.orig
+example/*/C-Sharp/*/*.bak
+example/*/C-Sharp/*/*.swp
+example/*/C-Sharp/*/*.swo
+example/*/C-Sharp/*/*.directory
+
+# Other files and directories
+example/*/C-Sharp/*/*.DS_Store
+example/*/C-Sharp/*/Thumbs.db
