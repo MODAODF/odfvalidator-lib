@@ -11,6 +11,7 @@
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="ODFValidator">
           <Directory Id="RESOURCESFOLDER" Name="resources" />
+          <Directory Id="INCLUDEFOLDER" Name="include" />
         </Directory>
       </Directory>
     </Directory>
@@ -36,12 +37,19 @@
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="INCLUDEFOLDER">
+      <Component Id="HeaderFile" Guid="@COMPONENT_GUID_HEADER@" Win64="yes">
+        <File Source="@CMAKE_SOURCE_DIR@/src/include/ODFValidator.hpp" />
+      </Component>
+    </DirectoryRef>
+
     <Feature Id="ProductFeature" Title="ODFValidator" Level="1">
       <ComponentRef Id="MainExecutable" />
       <ComponentRef Id="CheckerExecutable" />
       <ComponentRef Id="ValidatorDLL" />
       <ComponentRef Id="ValidatorStaticLib" />
       <ComponentRef Id="ValidatorJar" />
+      <ComponentRef Id="HeaderFile" />
     </Feature>
   </Product>
 </Wix>

@@ -37,6 +37,7 @@ if(WIN32)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_DLL OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_STATIC_LIB OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_JAR OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_HEADER OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
 # Find the JAR file
