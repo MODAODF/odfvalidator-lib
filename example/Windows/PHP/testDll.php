@@ -6,6 +6,9 @@ if ($argc < 2) {
 
 $filePath = $argv[1];
 
+// 將文件路徑從 UTF-8 編碼轉換為 Big5 編碼
+$filePathEncoded = iconv('UTF-8', 'Big5', $filePath);
+
 // 加載 FFI 擴展，指定完整的共享庫路徑
 $ffi = FFI::cdef("
     typedef struct ODFValidator ODFValidator;
@@ -24,7 +27,7 @@ if ($validator === null) {
 }
 
 // 調用 check 方法
-$result = $ffi->ODFValidator_check($validator, $filePath);
+$result = $ffi->ODFValidator_check($validator, $filePathEncoded);
 
 // 輸出結果
 echo "Result: " . $result . PHP_EOL;
