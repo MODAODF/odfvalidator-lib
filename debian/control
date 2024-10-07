@@ -11,3 +11,9 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, default-jre (>= 2:1.11)
 Description: ODF Validator
  A tool to validate Open Document Format (ODF) files.
+
+Package: odfvalidator-lib-dev
+Architecture: any
+Depends: odfvalidator-lib (= ${binary:Version})
+Description: ODF Validator Library Development Files
+ This package contains the development files for the ODF Validator library.
