@@ -52,7 +52,7 @@ PHP version 7.4 or higher is required to use the FFI extension.
 1. Open a command prompt.
 2. Navigate to the example directory:
    ```sh
-   cd C:\\Program Files\\ODFValidator\\example\\C#\\TestDll
+   cd C:\Program Files\ODFValidator\example\C#\TestDll
    ```
 3. Build the `.csproj` file:
    ```sh
