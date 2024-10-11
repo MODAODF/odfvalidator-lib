@@ -5,7 +5,7 @@ Summary:	ODF Validator
 
 Group:      Development/Tools
 License:	MPL-2.0
-URL:		http://www.ossii.com.tw/
+URL:		https://www.ossii.com.tw/git/OSSIIDEV/odfvalidator-lib.git
 Source0:	@PACKAGE@-%{version}.tar.gz
 
 BuildRequires:	gcc
@@ -47,5 +47,5 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 
 
 %changelog
-* Tue Aug 27 2024 Firefly <firefly@ossii.com.tw>
+* Tue Aug 27 2024 Ministry of Digital Affairs <odf@moda.gov.tw>
 - Initial RPM build.

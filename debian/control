@@ -1,10 +1,10 @@
 Source: odfvalidator-lib
 Section: utils
 Priority: optional
-Maintainer: Firefly <firefly@ossii.com.tw>
+Maintainer: Ministry of Digital Affairs <odf@moda.gov.tw>
 Build-Depends: debhelper (>= 9), gcc, make
 Standards-Version: 3.9.6
-Homepage: http://www.ossii.com.tw/
+Homepage: https://www.ossii.com.tw/git/OSSIIDEV/odfvalidator-lib.git
 
 Package: odfvalidator-lib
 Architecture: any

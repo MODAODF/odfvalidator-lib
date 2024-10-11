@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([ODFValidator], [0.0.9], [develop@ossii.com.tw])
+AC_INIT([ODFValidator], [0.0.9], [odf@moda.gov.tw])
 
 LT_INIT([shared, static])
 AC_PREFIX_DEFAULT([/usr])

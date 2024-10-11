@@ -6,7 +6,7 @@
 
 **License:** MPLv2.0
 
-**Author:** develop@ossii.com.tw
+**Author:** Ministry of Digital Affairs <odf@moda.gov.tw>
 
 **Description:** ODFValidator is a library designed to validate Open Document Format (ODF) files.
 
