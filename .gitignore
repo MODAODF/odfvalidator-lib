@@ -39,36 +39,36 @@ m4
 *.tar.gz
 
 # C# .NET build outputs
-example/*/C-Sharp/*/bin/
-example/*/C-Sharp/*/obj/
+example/*/C#/*/bin/
+example/*/C#/*/obj/
 
 # User-specific files
-example/*/C-Sharp/*/*.user
-example/*/C-Sharp/*/*.rsuser
-example/*/C-Sharp/*/*.suo
-example/*/C-Sharp/*/*.userosscache
-example/*/C-Sharp/*/*.sln.docstates
+example/*/C#/*/*.user
+example/*/C#/*/*.rsuser
+example/*/C#/*/*.suo
+example/*/C#/*/*.userosscache
+example/*/C#/*/*.sln.docstates
 
 # Rider project files
-example/*/C-Sharp/*/.idea/
+example/*/C#/*/.idea/
 
 # Visual Studio Code workspace settings
-example/*/C-Sharp/*/.vscode/
+example/*/C#/*/.vscode/
 
 # Temporary files
-example/*/C-Sharp/*/*.tmp
-example/*/C-Sharp/*/*.log
-example/*/C-Sharp/*/*.lock
-example/*/C-Sharp/*/*.cache
-example/*/C-Sharp/*/*.diff
-example/*/C-Sharp/*/*.patch
-example/*/C-Sharp/*/*.rej
-example/*/C-Sharp/*/*.orig
-example/*/C-Sharp/*/*.bak
-example/*/C-Sharp/*/*.swp
-example/*/C-Sharp/*/*.swo
-example/*/C-Sharp/*/*.directory
+example/*/C#/*/*.tmp
+example/*/C#/*/*.log
+example/*/C#/*/*.lock
+example/*/C#/*/*.cache
+example/*/C#/*/*.diff
+example/*/C#/*/*.patch
+example/*/C#/*/*.rej
+example/*/C#/*/*.orig
+example/*/C#/*/*.bak
+example/*/C#/*/*.swp
+example/*/C#/*/*.swo
+example/*/C#/*/*.directory
 
 # Other files and directories
-example/*/C-Sharp/*/*.DS_Store
-example/*/C-Sharp/*/Thumbs.db
+example/*/C#/*/*.DS_Store
+example/*/C#/*/Thumbs.db

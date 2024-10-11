@@ -17,10 +17,10 @@ odfchecker_CPPFLAGS = -pthread -I$(abs_top_builddir)/src/include
 odfchecker_SOURCES = tools/odfchecker.cpp
 odfchecker_LDADD = $(abs_top_builddir)/src/libodfvalidator.la
 
-csharpexampledir = $(datadir)/odfvalidator/example/C-Sharp/TestSo
-csharpexample_DATA = example/Linux/C-Sharp/TestSo/Program.cs \
-                     example/Linux/C-Sharp/TestSo/TestSo.csproj \
-                     example/Linux/C-Sharp/TestSo/TestSo.generated.sln
+csharpexampledir = $(datadir)/odfvalidator/example/C#/TestSo
+csharpexample_DATA = example/Linux/C#/TestSo/Program.cs \
+                     example/Linux/C#/TestSo/TestSo.csproj \
+                     example/Linux/C#/TestSo/TestSo.generated.sln
 
 phpexampledir = $(datadir)/odfvalidator/example/PHP
 phpexample_DATA = example/Linux/PHP/testSo.php
