@@ -188,7 +188,7 @@ private:
         {"12.0", "Office 2007"},
         {"14.0", "Office 2010"},
         {"15.0", "Office 2013"},
-        {"16.0", "Office 2016/ Office 2019/ Office 365"}
+        {"16.0", "Office 2016/Office 2019/Office 365"}
     };
 
 }; // class ODFValidator
