@@ -14,7 +14,7 @@
           <Directory Id="INCLUDEFOLDER" Name="include" />
           <Directory Id="EXAMPLEFOLDER" Name="example">
             <Directory Id="PHPFOLDER" Name="PHP" />
-            <Directory Id="CSHARPFOLDER" Name="C#">
+            <Directory Id="CSHARPFOLDER" Name="C-Sharp">
               <Directory Id="CSHARPTESTFOLDER" Name="TestDll" />
             </Directory>
           </Directory>
@@ -60,9 +60,9 @@
         <CreateFolder>
           <Permission User="Everyone" GenericAll="yes" />
         </CreateFolder>
-        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C#/TestDll/Program.cs" />
-        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C#/TestDll/TestDll.csproj" />
-        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C#/TestDll/TestDll.generated.sln" />
+        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C-Sharp/TestDll/Program.cs" />
+        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C-Sharp/TestDll/TestDll.csproj" />
+        <File Source="@CMAKE_SOURCE_DIR@/example/Windows/C-Sharp/TestDll/TestDll.generated.sln" />
       </Component>
     </DirectoryRef>
 
