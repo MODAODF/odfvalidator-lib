@@ -18,6 +18,7 @@
               <Directory Id="CSHARPTESTFOLDER" Name="TestDll" />
             </Directory>
           </Directory>
+          <Directory Id="DOCSFOLDER" Name="docs" />
         </Directory>
       </Directory>
     </Directory>
@@ -34,6 +35,12 @@
       </Component>
       <Component Id="ValidatorStaticLib" Guid="@COMPONENT_GUID_STATIC_LIB@" Win64="yes">
         <File Source="@CMAKE_BINARY_DIR@/src/ODFValidator_static.lib" />
+      </Component>
+      <Component Id="LicenseFile" Guid="@COMPONENT_GUID_LICENSE@" Win64="yes">
+        <File Source="@CMAKE_SOURCE_DIR@/LICENSE" />
+      </Component>
+      <Component Id="ReadmeFile" Guid="@COMPONENT_GUID_README@" Win64="yes">
+        <File Source="@CMAKE_SOURCE_DIR@/README.md" />
       </Component>
     </DirectoryRef>
 
@@ -66,6 +73,12 @@
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="DOCSFOLDER">
+      <Component Id="SampleCodeUsage" Guid="@COMPONENT_GUID_SAMPLE_CODE_USAGE@" Win64="yes">
+        <File Source="@CMAKE_SOURCE_DIR@/docs/sample_code_usage.md" />
+      </Component>
+    </DirectoryRef>
+
     <Feature Id="ProductFeature" Title="ODFValidator" Level="1">
       <ComponentRef Id="MainExecutable" />
       <ComponentRef Id="CheckerExecutable" />
@@ -75,6 +88,9 @@
       <ComponentRef Id="HeaderFile" />
       <ComponentRef Id="PhpExample" />
       <ComponentRef Id="CSharpExample" />
+      <ComponentRef Id="LicenseFile" />
+      <ComponentRef Id="ReadmeFile" />
+      <ComponentRef Id="SampleCodeUsage" />
     </Feature>
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />

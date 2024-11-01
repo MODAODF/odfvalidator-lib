@@ -40,6 +40,10 @@ if(WIN32)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_HEADER OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_PHP_EXAMPLE OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_CSHARP_EXAMPLE OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_LICENSE OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_README OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_README OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND powershell -Command "[guid]::NewGuid().ToString()" OUTPUT_VARIABLE COMPONENT_GUID_SAMPLE_CODE_USAGE OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
 # Find the JAR file
