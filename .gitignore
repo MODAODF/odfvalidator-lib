@@ -7,12 +7,14 @@
 /odfvalidator
 /odfchecker
 /build/
+/out/build/
 
 # Autofoo
 .deps
 .libs
 .dirstamp
 .vscode
+.vs
 Makefile
 Makefile.in
 aclocal.m4
