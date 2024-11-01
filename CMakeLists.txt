@@ -91,7 +91,7 @@ add_custom_command(
 
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/ODFValidator.msi
-    COMMAND light.exe -out ${CMAKE_BINARY_DIR}/ODFValidator.msi ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
+    COMMAND light.exe -ext WixUIExtension -cultures:zh-TW -out ${CMAKE_BINARY_DIR}/ODFValidator.msi ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
     DEPENDS ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
 )
 
