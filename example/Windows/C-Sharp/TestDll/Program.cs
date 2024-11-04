@@ -5,7 +5,7 @@ namespace OdfValidatorCaller
 {
     class Program
     {
-         private const string DllPath = "C:\\Program Files\\ODFValidator\\ODFValidator.dll";
+         private const string DllPath = "C:\\Program Files\\ODFValidator Library\\ODFValidator.dll";
 
         // 使用 DllImport 屬性來聲明非托管方法
         [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl)]

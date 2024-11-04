@@ -17,7 +17,7 @@ $ffi = FFI::cdef("
     void ODFValidator_delete(ODFValidator* validator);
     const char* ODFValidator_check(ODFValidator* validator, const char* filePath);
     const char* ODFValidator_getJsonResult(ODFValidator* validator);
-", "C:\\Program Files\\ODFValidator\\ODFValidator.dll");
+", "C:\\Program Files\\ODFValidator Library\\ODFValidator.dll");
 
 // 創建 ODFValidator 實例
 $validator = $ffi->ODFValidator_new();
