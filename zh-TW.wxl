@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WixLocalization Culture="zh-TW" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="WelcomeDlgTitle">{\WixUI_Font_Bigger}歡迎使用 [ProductName] [ProductVersion] 安裝精靈</String>
+</WixLocalization>
