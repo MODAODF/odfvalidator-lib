@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project("ODFValidator-Library" VERSION 1.0.0 LANGUAGES C CXX)
+project("ODFValidator-Library" VERSION 1.0.1 LANGUAGES C CXX)
 
 # Set default installation prefix
 if(WIN32)
