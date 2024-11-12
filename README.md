@@ -1,4 +1,4 @@
-# ODFValidator Library.
+# ODFValidator-Library.
 
 **Library name:** odfvalidator-lib
 
@@ -16,7 +16,7 @@
 
 **src/**
 
-Contains the core implementation of the ODFValidator library, including the main header and source files, as well as build configuration files.
+Contains the core implementation of the ODFValidator-Library, including the main header and source files, as well as build configuration files.
 
 **tools/**
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="C:\Program Files\ODFValidator Library\ODFValidator.dll">
+    <None Update="C:\Program Files\ODFValidator-Library\ODFValidator.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

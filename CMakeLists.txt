@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(ODFValidator VERSION 1.0.0 LANGUAGES C CXX)
+project("ODFValidator-Library" VERSION 1.0.0 LANGUAGES C CXX)
 
 # Set default installation prefix
 if(WIN32)
@@ -60,7 +60,7 @@ endif()
 
 # Add the path to the JAR file as a definition
 if(WIN32)
-    set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/ODFValidator/resources")
+    set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/resources")
 else()
     set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/share/java/odfvalidator")
 endif()
@@ -112,3 +112,4 @@ message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS}")
 message(STATUS "Enable debug: ${ENABLE_DEBUG}")
 message(STATUS "Target jar file: ${ODFVALIDATOR_JAR_DIR_PATH}")
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "WWWW ${PROJECT_NAME}")
