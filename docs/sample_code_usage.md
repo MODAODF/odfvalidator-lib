@@ -22,10 +22,10 @@ PHP version 7.4 or higher is required to use the FFI extension.
 
 ### Windows
 
-1. Open a command prompt.
+1. Launch Command Prompt.
 2. Navigate to the example directory:
    ```sh
-   cd C:\Program Files\ODFValidator-Library\example\PHP
+   cd c:\Program Files\ODFValidator-Library\example\PHP
    ```
 3. Run the sample code:
    ```sh
@@ -35,24 +35,26 @@ PHP version 7.4 or higher is required to use the FFI extension.
 ### Linux
 
 1. Install the `odfvalidator-lib-dev` package.
-2. Open a treminal.
-3. Navigate to the example directory:
+2. Launch a treminal.
+3. Copy sample code to your home directory, change owner and grant executable permission.
    ```sh
-   cd /usr/share/odfvalidator/example/PHP
+   cp /usr/share/odfvalidator-lib/example/PHP/testSo.php ~
+   sudo chown {your username}:{your user group} testSo.php
+   chmod u+x testSo.php
    ```
 4. Run the sample code:
    ```sh
-   sudo php testSo.php <file-path>
+   php ~/testSo.php <file-path>
    ```
 
 ## C# Sample Code
 
 ### Windows
 
-1. Open a command prompt.
+1. Launch Command Prompt.
 2. Navigate to the example directory:
    ```sh
-   cd C:\\Program Files\\ODFValidator-Library\\example\\C-Sharp\\TestDll
+   cd c:\Program Files\ODFValidator-Library\example\C-Sharp\TestDll
    ```
 3. Build the `.csproj` file:
    ```sh
@@ -65,13 +67,15 @@ PHP version 7.4 or higher is required to use the FFI extension.
 
 ### Linux
 
-1. Open a terminal.
-2. Navigate to the example directory:
+1. Launch a terminal.
+2. Copy sample code to your home directory and change owner.
    ```sh
-   cd /usr/share/odfvalidator/example/C-Sharp/TestSo
+   cp -R /usr/share/odfvalidator-lib/example/C-Sharp/TestSo ~
+   sudo chown -R {your username}:{your user group} TestSo/
    ```
 3. Build the `.csproj` file:
    ```sh
+   cd TestSo/
    dotnet build TestSo.csproj
    ```
 4. Run the sample code:
