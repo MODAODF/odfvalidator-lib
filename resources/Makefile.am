@@ -5,7 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-jardir = $(datadir)/java/odfvalidator
+jardir = $(datadir)/java/odfvalidator-lib
 jar_DATA = odfvalidator-0.12.0-jar-with-dependencies.jar
 dist_jar_DATA = $(jar_DATA)
 

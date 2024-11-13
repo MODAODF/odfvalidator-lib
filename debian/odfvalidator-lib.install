@@ -2,5 +2,5 @@ usr/bin/odfchecker
 usr/bin/odfvalidator
 usr/lib/*.so.0
 usr/lib/*.so.0.0.0
-usr/share/java/odfvalidator/*.jar
-usr/share/odfvalidator/example/*
+usr/share/java/odfvalidator-lib/*.jar
+usr/share/odfvalidator-lib/example/*

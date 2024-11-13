@@ -62,7 +62,7 @@ endif()
 if(WIN32)
     set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/resources")
 else()
-    set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/share/java/odfvalidator")
+    set(ODFVALIDATOR_JAR_DIR_PATH "${CMAKE_INSTALL_PREFIX}/share/java/odfvalidator-lib")
 endif()
 
 # Add the path to the JAR file as a definition

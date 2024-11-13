@@ -18,7 +18,7 @@ odfvalidator_sources = \
 lib_LTLIBRARIES = libodfvalidator.la
 libodfvalidator_la_SOURCES = $(odfvalidator_sources)
 
-odfvalidator_includedir = $(includedir)/odfvalidator
+odfvalidator_includedir = $(includedir)/odfvalidator-lib
 odfvalidator_include_HEADERS = include/ODFValidator.hpp
 
 # vim: set noet sw=4 ts=4:

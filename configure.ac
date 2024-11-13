@@ -51,7 +51,7 @@ else
     AC_MSG_RESULT([no])
     ENABLE_DEBUG=false
     AC_DEFINE([ENABLE_DEBUG],0,[Whether to compile in some extra debugging support code and disable some security pieces])
-    ODFVALIDATOR_JAR_PATH="${prefix}/share/java/odfvalidator/$ODFVALIDATOR_JAR_NAME"
+    ODFVALIDATOR_JAR_PATH="${prefix}/share/java/odfvalidator-lib/$ODFVALIDATOR_JAR_NAME"
 fi
 AC_SUBST(ENABLE_DEBUG)
 AM_CONDITIONAL([ENABLE_DEBUG], [test "$ENABLE_DEBUG" = "true"])
