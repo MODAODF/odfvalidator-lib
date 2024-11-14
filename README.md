@@ -34,7 +34,21 @@ Contains sample code for calling this library in php and C# on Windows and Linux
 
 ## Building and Packaging
 
-### Build the Library Manually
+### For GNU/Linux
+
+Using Ubuntu 20.04 as example environment. Make sure you install required software packages first:
+
+```
+sudo apt install -y build-essential debhelper devscripts
+```
+
+#### Build the DEB package
+
+```
+debuild -uc -us -b
+```
+
+#### Build the library manually
 
 ```
 ./autogen.sh
@@ -42,17 +56,9 @@ Contains sample code for calling this library in php and C# on Windows and Linux
 make
 ```
 
-### Compile the DEB Package
-
-```
-./autogen.sh
-./configure
-debuild -uc -us -b
-```
-
 You will find `odfvalidator-lib_...-1.amd64.deb` and `odfvalidator-lib-dev_...-1.amd64.deb` in the parent directory.
 
-#### Installing Development Packages
+##### Installing development packages
 
 To install the development packages, use the following commands:
 
@@ -61,7 +67,9 @@ sudo apt install ../odfvalidator-lib_...-1.amd64.deb`
 sudo apt install ../odfvalidator-lib-dev_...-1.amd64.deb`
 ```
 
-### Compile the MSI Package
+### For Windows
+
+#### Compile the MSI package
 
 To compile the MSI package, you need to have WiX Toolset installed. Follow these steps:
 
