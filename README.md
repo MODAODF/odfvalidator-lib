@@ -66,7 +66,7 @@ sudo apt install ../odfvalidator-lib-dev_...-1.amd64.deb`
 To compile the MSI package, you need to have WiX Toolset installed. Follow these steps:
 
 1. Install Visual Studio with the necessary components for C++ development.
-2. Install WiX Toolset from [WiX Toolset website](https://wixtoolset.org/).
+2. Install WiX Toolset v3 from [WiX Toolset website](https://wixtoolset.org/).
 3. Open the Visual Studio and select `odfvalidator-lib` library.
 4. Change the build configuration to "x64-Release"
 5. Build `odfchecker.exe`, `odfvalidator.exe`, and `ODFValidator.dll` individually.
