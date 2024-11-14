@@ -85,16 +85,19 @@ target_link_libraries(odfchecker ODFValidator_static)
 # Install target
 install(FILES ${JAR_FILE} DESTINATION ${ODFVALIDATOR_JAR_DIR_PATH})
 
+# Get wix installation path
+set(WIX_PATH $ENV{wix})
+
 # Add custom commands to generate MSI package
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
-    COMMAND candle.exe ${CMAKE_BINARY_DIR}/ODFValidator.wxs -o ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
+    COMMAND ${WIX_PATH}/bin/candle.exe ${CMAKE_BINARY_DIR}/ODFValidator.wxs -o ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
     DEPENDS ${CMAKE_BINARY_DIR}/ODFValidator.wxs
 )
 
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/ODFValidator-Library-${PROJECT_VERSION}.msi
-    COMMAND light.exe -ext WixUIExtension -cultures:zh-TW -loc ${CMAKE_SOURCE_DIR}/zh-TW.wxl -out ${CMAKE_BINARY_DIR}/ODFValidator-Library-${PROJECT_VERSION}.msi ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
+    COMMAND ${WIX_PATH}/bin/light.exe -ext WixUIExtension -cultures:zh-TW -loc ${CMAKE_SOURCE_DIR}/zh-TW.wxl -out ${CMAKE_BINARY_DIR}/ODFValidator-Library-${PROJECT_VERSION}.msi ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
     DEPENDS ${CMAKE_BINARY_DIR}/ODFValidator.wixobj
 )
 
