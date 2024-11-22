@@ -74,3 +74,6 @@ example/*/C-Sharp/*/*.directory
 # Other files and directories
 example/*/C-Sharp/*/*.DS_Store
 example/*/C-Sharp/*/Thumbs.db
+
+# Avoid tracking built RPM packages
+*.rpm
