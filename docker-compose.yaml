@@ -1,0 +1,29 @@
+# Docker Compose configuration file
+#
+# References:
+#
+# * Compose Specification | Compose file reference | Reference | Docker Docs
+#   https://docs.docker.com/compose/compose-file/
+#
+# Copyright 2024 Buo-ren, Lin <buoren.lin@ossii.com.tw>
+# SPDX-License-Identifier: LicenseRef-Proprietary
+name: odfvalidator-lib
+services:
+  redhat-test:
+    container_name: odfvalidator-lib-test
+    hostname: odfvalidator-lib-test
+    image: rockylinux:8
+    volumes:
+      - type: bind
+        source: ./
+        target: /project
+    environment:
+      - http_proxy
+      - https_proxy
+      - HTTP_PROXY
+      - HTTPS_PROXY
+
+      # Set this environment variable to your local timezone settings
+      # for proper operation timestamp
+      - TZ=CST-8
+    command: sleep infinity
