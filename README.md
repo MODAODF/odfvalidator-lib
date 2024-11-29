@@ -216,5 +216,5 @@ You will find `ODFValidator.msi` in the `odfvalidator-lib\out\build\x64-Release`
 
 The following material are referenced during the development of this project:
 
-* [3.4. What is a SPEC file | Red Hat Product Documentation](https://docs.redhat.com/fr/documentation/red_hat_enterprise_linux/9/html/packaging_and_distributing_software/assembly_what-a-spec-file-is_packaging-software#ref_spec-file-preamble-items_assembly_what-a-spec-file-is)
+* [Packaging and distributing software | Red Hat Product Documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index#assembly_what-a-spec-file-is_packaging-software)  
   Explains the format of the `BuildRequires` RPM spec file preamble item.
