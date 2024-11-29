@@ -1,7 +1,7 @@
 Name:		@PACKAGE_NAME@
 Version:	@VERSION@
-Release:	3%{?dist}
-Summary:	ODF Validator
+Release:	4%{?dist}
+Summary:	Utilities for checking and validating ODF documents
 
 Group:      Development/Tools
 License:	MPL-2.0
@@ -13,12 +13,16 @@ BuildRequires:	autoconf automake findutils libtool diffutils file gcc gcc-c++ ma
 Requires:	(jre-11-headless or jre-12-headless or jre-13-headless or jre-14-headless or jre-15-headless or jre-16-headless or jre-17-headless or jre-18-headless or jre-19-headless or jre-20-headless or jre-21-headless or jre-22-headless or jre-23-headless or jre-24-headless or jre-25-headless or jre-26-headless or jre-27-headless or jre-28-headless or jre-29-headless or jre-30-headless)
 
 %description
+This package provides the following utilites for checking and validating ODF documents:
+
+* odfchecker
+* odfvalidator
 
 %package	devel
 Summary:    Development files for %{name}
 Requires:	%{name} = %{version}
 %description	devel
-
+This package provides development files for the ODFValidator package.
 
 %prep
 %setup -q -n @PACKAGE@-%{version}
