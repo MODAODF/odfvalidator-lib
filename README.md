@@ -218,3 +218,5 @@ The following material are referenced during the development of this document:
 
 * [Packaging and distributing software | Red Hat Product Documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index#assembly_what-a-spec-file-is_packaging-software)  
   Explains the format of the `BuildRequires` RPM spec file preamble item.
+* [rpm.org - Boolean Dependencies](https://rpm-software-management.github.io/rpm/manual/boolean_dependencies.html)  
+  Explains the syntax and available comparison operators of the Boolean Dependencies feature of the RPM package specification file.
