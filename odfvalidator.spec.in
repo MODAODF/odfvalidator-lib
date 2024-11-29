@@ -1,6 +1,6 @@
 Name:		@PACKAGE_NAME@
 Version:	@VERSION@
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	Utilities for checking and validating ODF documents
 
 Group:      Development/Tools

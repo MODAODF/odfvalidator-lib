@@ -139,10 +139,10 @@ make dist
 
 #### Build the RPM packages
 
-Run the following command to build the RPM packages:
+Run the following command to build the RPM packages(replace `X.Y.Z` with the actual version string):
 
 ```bash
-rpmbuild -tb odfvalidator-0.0.9.tar.gz
+rpmbuild -tb odfvalidator-X.Y.Z.tar.gz
 ```
 
 The built RPM packages should now be available under the ~/rpmbuild/RPMS directory:
@@ -150,10 +150,10 @@ The built RPM packages should now be available under the ~/rpmbuild/RPMS directo
 ```txt
 /root/rpmbuild/RPMS
 └── x86_64
-    ├── ODFValidator-0.0.9-1.el8.x86_64.rpm
-    ├── ODFValidator-debuginfo-0.0.9-1.el8.x86_64.rpm
-    ├── ODFValidator-debugsource-0.0.9-1.el8.x86_64.rpm
-    └── ODFValidator-devel-0.0.9-1.el8.x86_64.rpm
+    ├── ODFValidator-1.0.1-1.el8.x86_64.rpm
+    ├── ODFValidator-debuginfo-1.0.1-1.el8.x86_64.rpm
+    ├── ODFValidator-debugsource-1.0.1-1.el8.x86_64.rpm
+    └── ODFValidator-devel-1.0.1-1.el8.x86_64.rpm
 
 1 directory, 4 files
 ```
