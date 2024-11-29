@@ -52,7 +52,7 @@ Currently only Rocky Linux 8 is tested, for other distribution versions YMMV.
 1. Run the following command to launch a Docker container for building the product:
 
     ```bash
-    docker compose up -d
+    docker compose -f docker-compose.packaging.yaml up -d
     ```
 
    **NOTE:**
@@ -61,13 +61,13 @@ Currently only Rocky Linux 8 is tested, for other distribution versions YMMV.
    * You can stop and destroy the container by running the following command:
 
         ```bash
-        docker compose down --timeout 0
+        docker compose -f docker-compose.packaging.yaml down --timeout 0
         ```
 
 1. Run the following command to aquire a login shell in the container:
 
     ```bash
-    docker exec -it odfvalidator-lib-test bash --login
+    docker exec -it odfvalidator-lib-rhpkg bash --login
     ```
 
 1. (OPTIONAL) Run the following command to update all packages in the container to apply any bug fix that may be available after the base container image is built:

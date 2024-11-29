@@ -9,9 +9,9 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
 name: odfvalidator-lib
 services:
-  redhat-test:
-    container_name: odfvalidator-lib-test
-    hostname: odfvalidator-lib-test
+  redhat-pkg:
+    container_name: odfvalidator-lib-rhpkg
+    hostname: odfvalidator-lib-rhpkg
     image: rockylinux:8
     volumes:
       - type: bind
