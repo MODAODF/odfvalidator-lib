@@ -52,7 +52,7 @@ Currently only Rocky Linux 8 is tested, for other distribution versions YMMV.
 1. Run the following command to launch a Docker container for building the product:
 
     ```bash
-    docker compose -f docker-compose.packaging.yaml up -d
+    docker compose -f docker-compose.dev.yaml up -d
     ```
 
    **NOTE:**
@@ -61,7 +61,7 @@ Currently only Rocky Linux 8 is tested, for other distribution versions YMMV.
    * You can stop and destroy the container by running the following command:
 
         ```bash
-        docker compose -f docker-compose.packaging.yaml down --timeout 0
+        docker compose -f docker-compose.dev.yaml down --timeout 0
         ```
 
 1. Run the following command to aquire a login shell in the container:

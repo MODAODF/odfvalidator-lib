@@ -1,4 +1,4 @@
-# Docker Compose configuration file
+# Docker Compose configuration file for creating a development environment environment of this project
 #
 # References:
 #
@@ -12,6 +12,25 @@ services:
   redhat-pkg:
     container_name: odfvalidator-lib-rhpkg
     hostname: odfvalidator-lib-rhpkg
+    image: rockylinux:8
+    volumes:
+      - type: bind
+        source: ./
+        target: /project
+    environment:
+      - http_proxy
+      - https_proxy
+      - HTTP_PROXY
+      - HTTPS_PROXY
+
+      # Set this environment variable to your local timezone settings
+      # for proper operation timestamp
+      - TZ=CST-8
+    command: sleep infinity
+
+  redhat-test:
+    container_name: odfvalidator-lib-rhtest
+    hostname: odfvalidator-lib-rhtest
     image: rockylinux:8
     volumes:
       - type: bind
