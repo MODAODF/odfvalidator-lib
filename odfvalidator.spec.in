@@ -52,9 +52,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 
 
 %changelog
-* Thu Nov 28 2024 Buo-ren Lin <buoren.lin@ossii.com.tw>
+* Thu Nov 28 2024 Ministry of Digital Affairs <odf@moda.gov.tw>
 - Fix incorrect Requires preamble item
-* Fri Nov 22 2024 Buo-ren Lin <buoren.lin@ossii.com.tw>
+* Fri Nov 22 2024 Ministry of Digital Affairs <odf@moda.gov.tw>
 - Fix incorrect BuildRequires preamble item
 * Tue Aug 27 2024 Ministry of Digital Affairs <odf@moda.gov.tw>
 - Initial RPM build.
